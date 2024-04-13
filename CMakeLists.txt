@@ -11,7 +11,6 @@ include_directories(${LIBXSLT_INCLUDE_DIR})
 
 add_executable(xml2pdf src/main.c)
 
-# Linka com as bibliotecas necessárias
 target_link_libraries(xml2pdf
         ${LIBXML2_LIBRARIES}
         ${LIBXSLT_LIBRARIES}
