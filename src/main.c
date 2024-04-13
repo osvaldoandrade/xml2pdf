@@ -69,27 +69,19 @@ int transform_xml_to_html(int argc, char **argv) {
     return 0;
 }
 
+
 /**
-* @brief Converts an HTML file to a PDF file using wkhtmltopdf.
-*
-* This function first checks if the correct number of command-line arguments have been provided (i.e., HTML file path and output PDF file path).
-* If not, an error message is printed to the standard error stream and the function returns 1.
-*
-* It then constructs a command string using the provided HTML file path and output PDF file path. The command string is in the format "wkhtmltopdf <html_file_path> <output_pdf_file_path
-*>".
-* It uses the sprintf function to format the command string and save it in the 'command' variable.
-*
-* Finally, it calls the system function with the constructed command string to execute it. This will execute the wkhtmltopdf command and generate the PDF file.
-* If the command executes successfully, a success message is printed to the standard output stream. Otherwise, any error messages from the command execution will be printed to the standard
-* output stream.
-*
-* @param argc The number of command-line arguments.
-* @param argv An array of strings containing the command-line arguments.
-*             argv[0] - Name of the program
-*             argv[1] - HTML file path
-*             argv[2] - Output PDF file path
-* @return 0 if the PDF is generated successfully, otherwise 1.
-*/
+ * @brief Converts an HTML file to a PDF file using wkhtmltopdf command-line tool.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of command-line arguments.
+ *
+ * @return 0 if the PDF is generated successfully, 1 otherwise.
+ *
+ * @note The command must be executed with three arguments: the name of the HTML file to convert,
+ *       and the path of the output PDF file.
+ * @note The wkhtmltopdf command-line tool must be installed on the system for this function to work.
+ */
 int convert_html_to_pdf(int argc, char **argv) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <html_file_path> <output_pdf_file_path>\n", argv[0]);
