@@ -59,9 +59,26 @@ jobs:
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest --build-config ${{ matrix.build_type }}
 
-    - name: Upload Artifacts
+    - name: Zip the build
+      run: |
+        cd ${{ steps.strings.outputs.build-output-dir }}
+        zip -r compiled-binaries.zip .
+
+    - name: Upload to GitHub Packages
       uses: actions/upload-artifact@v3
       with:
-        name: compiled-files
-        path: ${{ steps.strings.outputs.build-output-dir }}/**
+        name: compiled-binaries
+        path: ${{ steps.strings.outputs.build-output-dir }}/compiled-binaries.zip
 
+    - name: Publish to GitHub Packages
+      run: |
+        echo "repository=${{ github.repository }}" >> $GITHUB_ENV
+        echo "actor=${{ github.actor }}" >> $GITHUB_ENV
+        echo "token=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+        echo "package_version=1.0.0" >> $GITHUB_ENV # Update or parameterize as needed
+        curl -X PUT \
+             -H "Accept: application/vnd.github.v3+json" \
+             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+             -H "Content-Type: application/zip" \
+             --data-binary @${{ steps.strings.outputs.build-output-dir }}/compiled-binaries.zip \
+             "https://uploads.github.com/repos/$GITHUB_REPOSITORY/packages/content/zip/$PACKAGE_NAME/$PACKAGE_VERSION"
