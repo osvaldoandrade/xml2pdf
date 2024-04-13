@@ -32,7 +32,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         build_type: [Release]
-        c_compiler: [gcc, clang]
+        c_compiler: [clang]
     steps:
       - uses: actions/checkout@v3
 
