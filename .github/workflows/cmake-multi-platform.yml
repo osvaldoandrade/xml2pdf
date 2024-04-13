@@ -38,6 +38,12 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: brew install libxslt
 
+    - name: Set reusable strings
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
     - name: Configure CMake
       run: |
         cmake -B ${{ steps.strings.outputs.build-output-dir }} \
@@ -47,20 +53,19 @@ jobs:
         -S ${{ github.workspace }}
 
     - name: Build
-      run: cmake --build build --config ${{ matrix.build_type }}
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
     - name: Test
-      working-directory: build
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest --build-config ${{ matrix.build_type }}
 
-    - name: Package into Docker Image
+    - name: Zip the build
       run: |
-        docker build -t ${{ github.repository }}:latest .
+        cd ${{ steps.strings.outputs.build-output-dir }}
+        zip -r compiled-binaries.zip .
 
-    - name: Login to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-    - name: Push Docker Image to GitHub Packages
-      run: |
-        docker tag ${{ github.repository }}:latest ghcr.io/${{ github.repository }}:latest
-        docker push ghcr.io/${{ github.repository }}:latest
+    - name: Upload to GitHub Packages
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-binaries
+        path: ${{ steps.strings.outputs.build-output-dir }}/compiled-binaries.zip
