@@ -57,7 +57,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Assumindo que você está usando um PAT chamado MY_GITHUB_TOKEN
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_RELEASE }}
       with:
         tag_name: ${{ github.run_number }}
         release_name: Release ${{ github.run_number }}
@@ -68,7 +68,7 @@ jobs:
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.actions-release }}
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_RELEASE }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./build/compiled-binaries.zip
