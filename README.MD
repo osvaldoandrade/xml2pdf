@@ -81,10 +81,7 @@ make
 ./xml2pdf
 ```
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-Usage: /Users/ova/CLionProjects/xml2pdf/cmake-build-debug/xml2pdf <command> [arguments]
+##Usage: /Users/ova/CLionProjects/xml2pdf/cmake-build-debug/xml2pdf <command> [arguments]
 Commands:
 --xml2html: Transform XML to HTML using XSLT
 --html2pdf: Convert HTML to PDF
