@@ -145,6 +145,7 @@ int print_usage(int argc, char **argv) {
  * @return 0 if the command was executed successfully, 1 otherwise.
  */
 int main(int argc, char **argv) {
+
     if (argc < 2) {
         print_usage(argc, argv);
         return 1;

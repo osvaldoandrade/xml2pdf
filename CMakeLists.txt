@@ -9,7 +9,7 @@ find_package(LibXslt REQUIRED)
 include_directories(${LIBXML2_INCLUDE_DIR})
 include_directories(${LIBXSLT_INCLUDE_DIR})
 
-add_executable(xml2pdf main.c)
+add_executable(xml2pdf src/main.c)
 
 # Linka com as bibliotecas necessárias
 target_link_libraries(xml2pdf
