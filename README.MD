@@ -80,9 +80,3 @@ make
 ```sh
 ./xml2pdf
 ```
-
-##Usage: /Users/ova/CLionProjects/xml2pdf/cmake-build-debug/xml2pdf <command> [arguments]
-Commands:
---xml2html: Transform XML to HTML using XSLT
---html2pdf: Convert HTML to PDF
---help: Print usage information
