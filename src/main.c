@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxslt/xslt.h>
 #include <libxslt/transform.h>
@@ -92,20 +91,16 @@ int transform_xml_to_html(int argc, char **argv) {
 * @return 0 if the PDF is generated successfully, otherwise 1.
 */
 int convert_html_to_pdf(int argc, char **argv) {
-    // Check if the correct number of arguments are provided
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <html_file_path> <output_pdf_file_path>\n", argv[0]);
         return 1;
     }
 
-    // Construct the command string to call wkhtmltopdf
     char command[1000];
     sprintf(command, "wkhtmltopdf %s %s", argv[1], argv[2]);
 
-    // Execute the command
     int status = system(command);
 
-    // Check if the command executed successfully
     if (status == 0) {
         printf("PDF generated successfully.\n");
         return 0;
@@ -115,17 +110,6 @@ int convert_html_to_pdf(int argc, char **argv) {
     }
 }
 
-/**
- * @brief Prints the usage information for the program.
- *
- * This function takes the command line arguments `argc` and `argv`, and prints the program's usage information
- * to the console. The usage information includes the available commands and their descriptions.
- *
- * @param argc The number of command line arguments.
- * @param argv An array of command line arguments.
- *
- * @return 0 indicating success.
- */
 int print_usage(int argc, char **argv) {
     printf("Usage: %s <command> [arguments]\n", argv[0]);
     printf("Commands:\n");
@@ -135,15 +119,6 @@ int print_usage(int argc, char **argv) {
     return 0;
 }
 
-/**
- * @brief Main function of the program.
- *
- * This function processes the command line arguments and executes the specified command.
- *
- * @param argc The number of command line arguments.
- * @param argv An array of command line arguments.
- * @return 0 if the command was executed successfully, 1 otherwise.
- */
 int main(int argc, char **argv) {
 
     if (argc < 2) {
