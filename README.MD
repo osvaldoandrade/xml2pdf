@@ -61,7 +61,7 @@ To convert an HTML file to PDF:
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/<username>/xml2pdf.git
+git clone https://github.com/osvaldoandrade/xml2pdf.git
 ```
 
 2. Navigate to the project directory:
